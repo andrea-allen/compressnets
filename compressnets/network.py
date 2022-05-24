@@ -3,10 +3,16 @@ import numpy as np
 
 class TemporalNetwork:
     """
-    Holds adjacency matrices for each snapshot and the time windows for each snapshot
+    Stores consecutive Snapshot() objects representing static
+    adjacency matrices for each snapshot for consecutive time windows.
     """
 
     def __init__(self, snapshots):
+        """
+        Create a TemporalNetwork instance from a list of Snapshot objects.
+
+        :param snapshots: list of Snapshot objects
+        """
         self.snapshots = snapshots
         self.length = len(snapshots)
 
@@ -33,11 +39,18 @@ class TemporalNetwork:
 
 class Snapshot:
     """
-    One static network for a single time window of a temporal network. Can be expressed as a network object, adjacency matrix,
-    and equipped with a start time t, end time t, and beta
+    One static network for a single time window of a temporal network.
+    Provide instance with start time, end time, adjacency matrix A as a numpy array, and infection rate beta.
     """
 
     def __init__(self, start_time, end_time, beta, A):
+        """
+
+        :param start_time: float or int
+        :param end_time: float or int
+        :param beta: float between (0,1), infection rate for snapshot
+        :param A: numpy array, representing the adjacency matrix
+        """
         self.start_time = start_time
         self.end_time = end_time
         self.A = A
