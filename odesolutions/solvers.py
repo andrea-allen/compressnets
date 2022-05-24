@@ -34,6 +34,8 @@ class TemporalSIModel:
             beta = self.params['beta']
         except KeyError:
             return Exception("Must include params argument with 'beta' key and associated value between [0,1].")
+        except TypeError:
+            return Exception("params argument must be a dict with key 'beta' and value")
         derivatives = np.zeros(len(y))
         A = self.networks[self.current_switch_time]
         for i in range(self.N):
@@ -85,7 +87,7 @@ class TemporalSIModel:
         """
         time_vector = solution[0]
         infected_vector = np.sum(solution[1], axis=0)
-        total_time = np.sum(np.diff(np.array(list(self.networks.keys()))))
+        total_time = np.sum(np.diff(np.array(list(self.networks.keys())))) + list(self.networks.keys())[0]
         digitized = np.digitize(np.array(time_vector), np.linspace(0, total_time, resolution))
         time_stamp_means = [np.array(time_vector)[digitized == i].mean() for i in
                      range(1, len(np.linspace(0, total_time, resolution)))]
