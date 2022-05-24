@@ -1,1 +1,2 @@
-from compressnets import compression, network
+from compressnets import compression, network, solvers
+
