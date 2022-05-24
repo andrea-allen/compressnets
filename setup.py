@@ -1,7 +1,7 @@
 from setuptools import find_packages
 import setuptools
 
-VERSION = '0.0.3'
+VERSION = '0.0.4'
 DESCRIPTION = 'CompressNets package for temporal network and contact data compression'
 LONG_DESCRIPTION = 'CompressNets is a Python package that supports compression of user-specified adjacency matrices ' \
                    'encoding temporal contact data. Using an original compression algorithm, a simplified compressed ' \
@@ -24,7 +24,7 @@ setuptools.setup(
 
     keywords=['python', 'compressnets'],
     classifiers=[
-        "Development Status :: 1 - Planning",
+        "Development Status :: 3 - Alpha",
         "Intended Audience :: Science/Research",
         "Programming Language :: Python :: 2",
         "Programming Language :: Python :: 3",
