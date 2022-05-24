@@ -8,5 +8,8 @@ include LICENSE.txt
 # Include setup.py
 include setup.py
 
+# Include the data files
+recursive-include datafiles *
+
 # Include the sample data
 include compressnets/sample_network
