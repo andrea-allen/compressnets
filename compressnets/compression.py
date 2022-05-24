@@ -3,27 +3,28 @@ from compressnets.network import *
 
 class Compressor:
     @staticmethod
-    def compress(temporal_net, iterations=1, how='even', error_type='combined'):
+    def compress(temporal_net, compress_to=1,
+                 how='optimal', error_type='combined'):
         """
-        Takes an ordered list of pairs and returns the compressed versions. Sole layers are returned as-is.
-        :param error_type: 'terminal' or 'halftime' or 'combined' (default, best)
-        :param how: 'optimal' or 'even'
-        :param iterations: how many rounds of compression to perform
+        Takes a TemporalNetwork object and returns the compressed version. Sole snapshots are returned as-is.
         :param temporal_net: TemporalNetwork object
-        :return: Ordered list of layer pairs or singles
+        :param error_type: 'combined' (default, best), 'terminal' or 'halftime'
+        :param how: 'optimal' (default). Provide 'even' alternatively.
+        :param compress_to: how many resulting compressed snapshots to return
+        :return: TemporalNetwork object and total induced error from chosen snapshot pairs to compress
         """
-        to_compress = int(iterations)
         if how.lower() == 'even':
-            desired_num_snapshots = temporal_net.length - to_compress
+            desired_num_snapshots = compress_to
             new_networks = TemporalNetwork(Compressor._even_compression(temporal_net, desired_num_snapshots))
-            return new_networks
+            return {'compressed_network': new_networks}
         current_net = temporal_net
         total_chosen_error = 0
+        iterations = temporal_net.length - compress_to
         for r in range(iterations):
             new_net, chosen_error = Compressor._compress_round(current_net, how, error_type)
             current_net = new_net
             total_chosen_error += chosen_error
-        return current_net, total_chosen_error
+        return {'compressed_network': current_net, 'error': total_chosen_error}
 
     @staticmethod
     def _compress_round(temporal_net, how, error_type):

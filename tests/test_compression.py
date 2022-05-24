@@ -18,7 +18,8 @@ class CompressorTests(unittest.TestCase):
         B2 = Snapshot(4, 5, .5, array_two)
         temporal_net = TemporalNetwork([A, A2, B, B2])
         # ACT
-        compressed_net, error_chosen = Compressor.compress(temporal_net, how='optimal')
+        compressed_net = Compressor.compress(temporal_net, compress_to=temporal_net.length - 1,
+                                                           how='optimal')['compressed_network']
         # ASSERT
         self.assertTrue(TemporalNetwork([Snapshot(1, 3, .5, array_one), B, B2]).equals(compressed_net))
 
@@ -41,7 +42,8 @@ class CompressorTests(unittest.TestCase):
         temporal_net = TemporalNetwork([A, A2, B, B2, A3, B3, A4, A5])
         combined_snapshot = Snapshot(1,3, .5, (A.A+B.A)/2)
         # ACT
-        compressed_net, error_chosen = Compressor.compress(temporal_net, iterations=3, how='optimal')
+        compressed_net = Compressor.compress(temporal_net, compress_to=temporal_net.length-3,
+                                             how='optimal')['compressed_network']
         # ASSERT
         self.assertTrue(TemporalNetwork([Snapshot(1, 3, .5, array_one),
                                          Snapshot(3, 5, .5, array_two),
@@ -67,7 +69,8 @@ class CompressorTests(unittest.TestCase):
         B4 = Snapshot(9, 10, .5, array_two)
         temporal_net = TemporalNetwork([A, A2, B, B2, A3, B3, A4, A5, B4])
         # ACT
-        compressed_net, error_chosen = Compressor.compress(temporal_net, iterations=3, how='optimal')
+        compressed_net = Compressor.compress(temporal_net, compress_to=temporal_net.length-3,
+                                             how='optimal')['compressed_network']
         # ASSERT
         self.assertTrue(TemporalNetwork([Snapshot(1,3,.5,array_one),
                                          Snapshot(3,5,.5,array_two),
@@ -102,12 +105,14 @@ class CompressorTests(unittest.TestCase):
                                                    Snapshot(7, 8, .5, array_two),
                                                    Snapshot(8, 10, .5, array_one)])
         # ACT
-        compressed_net, total_error = Compressor.compress(temporal_net, iterations=3, how='optimal')
+        compressed_net = Compressor.compress(temporal_net, compress_to=temporal_net.length-3,
+                                             how='optimal')['compressed_network']
         # ASSERT
         self.assertTrue(expected_compressed_net.equals(compressed_net))
 
         # ACT
-        compressed_net, total_error = Compressor.compress(temporal_net, iterations=4, how='optimal')
+        compressed_net = Compressor.compress(temporal_net, compress_to=temporal_net.length-4,
+                                             how='optimal')['compressed_network']
         # ASSERT
         self.assertTrue(TemporalNetwork([
             Snapshot(1, 2, .5, array_two),
@@ -142,11 +147,9 @@ class CompressorTests(unittest.TestCase):
         temporal_net = TemporalNetwork([A, B, C, D, E, F])
 
         # ACT
-        compressed_net_once, _ = Compressor.compress(temporal_net, how='optimal')
+        compressed_net_once = Compressor.compress(temporal_net, compress_to=temporal_net.length-1,
+                                                     how='optimal')['compressed_network']
         # ASSERT
-        # should_be_network = TemporalNetwork([Snapshot(1, 3, 0.8, some_array),
-        #                                      C, D,
-        #                                      E, F])
         # Compresses the middle error based on the median strategy
         should_be_network = TemporalNetwork([Snapshot(1, 3, 0.8, some_array),
                                              C, D,
@@ -154,7 +157,8 @@ class CompressorTests(unittest.TestCase):
         self.assertTrue(should_be_network.equals(compressed_net_once))
 
         # ACT (compress again)
-        compressed_net_twice, _ = Compressor.compress(compressed_net_once, how='optimal')
+        compressed_net_twice = Compressor.compress(compressed_net_once, compress_to=compressed_net_once.length-1,
+                                                      how='optimal')['compressed_network']
 
         # ASSERT
         should_be_network = TemporalNetwork([
@@ -189,7 +193,8 @@ class CompressorTests(unittest.TestCase):
         temporal_net = TemporalNetwork([A, B, C, D, E, F])
 
         # ACT
-        compressed_net = Compressor.compress(temporal_net, iterations=3, how='even')
+        compressed_net = Compressor.compress(temporal_net, compress_to=temporal_net.length-3,
+                                             how='even')['compressed_network']
         # ASSERT
         should_be_network = TemporalNetwork([Snapshot(1,3, 0.8, some_array),
                                              Snapshot(3,5, 0.8, other_array),
@@ -223,10 +228,14 @@ class CompressorTests(unittest.TestCase):
         temporal_net = TemporalNetwork([A, B, C, D, E, F])
 
         # ACT
-        compressed_net_level2, _ = Compressor.compress(temporal_net, iterations=2, how='optimal')
-        compressed_net_again, _ = Compressor.compress(compressed_net_level2, iterations=2, how='optimal')
+        compressed_net_level2 = Compressor.compress(temporal_net, compress_to=temporal_net.length-2,
+                                                    how='optimal')['compressed_network']
+        compressed_net_again = Compressor.compress(compressed_net_level2,
+                                                   compress_to=compressed_net_level2.length-2,
+                                                   how='optimal')['compressed_network']
 
-        compressed_level2_twice, _ = Compressor.compress(temporal_net, iterations=4, how='optimal')
+        compressed_level2_twice = Compressor.compress(temporal_net, compress_to=temporal_net.length-4,
+                                                      how='optimal')['compressed_network']
 
         # ASSERT
         self.assertTrue(compressed_net_again.equals(compressed_level2_twice))
@@ -333,7 +342,8 @@ class CompressorTests(unittest.TestCase):
         temporal_net = TemporalNetwork([A, B, C, D])
 
         # ACT
-        compressed_net, _ = Compressor.compress(temporal_net, iterations=2, how='optimal')
+        compressed_net = Compressor.compress(temporal_net, compress_to=temporal_net.length-2,
+                                             how='optimal')['compressed_network']
         should_be_network = TemporalNetwork([Snapshot(1, 2, 0.8, A.A),
                                              Snapshot(2, 5, 0.8, same_array)])
         should_not_be = TemporalNetwork([Snapshot(1, 2, 0.8, (A.A+B.A)/2),
@@ -374,9 +384,11 @@ class CompressorTests(unittest.TestCase):
 
         # ACT
         # optimal
-        compressed_net, _ = Compressor.compress(temporal_net, iterations=5, how='optimal')
+        compressed_net = Compressor.compress(temporal_net, compress_to=temporal_net.length-5,
+                                             how='optimal')['compressed_network']
         # random
-        even_net = Compressor.compress(temporal_net, iterations=5, how='even')
+        even_net = Compressor.compress(temporal_net, compress_to=temporal_net.length-5,
+                                       how='even')['compressed_network']
 
         # ASSERT
         self.assertTrue(np.array_equal(compressed_net.snapshots[0].A, (some_array+other_array+third_array+other_array
