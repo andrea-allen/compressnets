@@ -127,5 +127,11 @@ plt.show()
 ```
 
 
-![fig1](datafiles/sample_fig.pdf)
+![fig1](datafiles/sample_fig.png)
+Output figure from the sample code above using the provided demo temporal network.
+The original temporal network has 50 snapshots and is compressed down to 4 snapshots.
+In blue, you see the resulting temporal boundaries of the 4 snapshots compressed using our
+algorithm. In red, you see the resulting temporal boundaries of the 4 snapshots compressed
+into even-size aggregate matrices. The time series represent an SI epidemic process over the
+3 versions of the network.
 
