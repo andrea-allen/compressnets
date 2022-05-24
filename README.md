@@ -58,3 +58,74 @@ would with your original temporal network, by accessing the `snapshots` member v
 your_new_snapshots = your_compressed_network.snapshots
 ```
 from which you can access each snapshot's new duration, adjacency matrix, start and end times.
+
+## Usage using demo network
+
+For a more involved demo, make use of the `compressnets.demos` module to access a more complex
+temporal network without having to create one yourself. Follow the code below in your
+own workspace to use a sample temporal network to compress it, and visualize a system of ODEs over
+the compressed network vs. the original temporal solution. 
+
+```
+demo_network = demos.Sample.get_sample_temporal_network()
+compressed_optimal = comp.Compressor.compress(my_net, compress_to=4, how='optimal')["compressed_network"]
+compressed_even = comp.Compressor.compress(my_net, compress_to=4, how='even')["compressed_network"]
+```
+Now you have the resulting compressed temporal networks for the optimal (algorithmic) method and from an even
+aggregation method. 
+
+To visualize the new time boundaries of each aggregated snapshot, and compare a full
+Susceptible-Infected disease spread process against the fully temporal network, you can
+utilize the `compressnets.solvers` module to solve a system of ODEs and plot the resulting figure:
+
+```
+## Creating and solving a model with the original temporal network
+
+N = demo_network.snapshots[0].N
+beta = demo_network.snapshots[0].beta
+model = solvers.TemporalSIModel({'beta': beta}, np.array([1/N for _ in range(N)]),
+                                demo_network.snapshots[demo_network.length-1].end_time,
+                                demo_network)
+soln = model.solve_model()
+smooth_soln = model.smooth_solution(soln)
+plt.plot(smooth_soln[0], smooth_soln[1], color='k', label='Temporal solution')
+plt.vlines(list(demo_network.get_time_network_map().keys()), ymin=0, ymax=N/3, ls='-',
+          lw=0.5, alpha=1.0, color='k')
+
+
+## Creating and solving a model with the algorithmically compressed temporal network
+
+N = compressed_optimal.snapshots[0].N
+beta = compressed_optimal.snapshots[0].beta
+model = solvers.TemporalSIModel({'beta': beta}, np.array([1/N for _ in range(N)]),
+                                compressed_optimal.snapshots[compressed_optimal.length-1].end_time,
+                                compressed_optimal)
+soln = model.solve_model()
+smooth_soln = model.smooth_solution(soln)
+plt.plot(smooth_soln[0], smooth_soln[1], color='b', label='Optimal compressed')
+plt.vlines(list(compressed_optimal.get_time_network_map().keys()), ymin=N/3, ymax=2*N/3, ls='-',
+          lw=0.5, alpha=1.0, color='b')
+
+
+## Creating and solving a model with the evenly compressed temporal network
+
+N = compressed_even.snapshots[0].N
+beta = compressed_even.snapshots[0].beta
+model = solvers.TemporalSIModel({'beta': beta}, np.array([1/N for _ in range(N)]),
+                                compressed_even.snapshots[compressed_even.length-1].end_time,
+                                compressed_even)
+soln = model.solve_model()
+smooth_soln = model.smooth_solution(soln)
+plt.plot(smooth_soln[0], smooth_soln[1], color='r', label='Even compressed')
+plt.vlines(list(compressed_even.get_time_network_map().keys()), ymin=2*N/3, ymax=N, ls='-',
+          lw=0.5, alpha=1.0, color='r')
+
+plt.ylabel('Number infected')
+plt.xlabel('Time')
+plt.legend()
+plt.show()
+```
+
+
+![fig1](datafiles/sample_fig.pdf)
+
