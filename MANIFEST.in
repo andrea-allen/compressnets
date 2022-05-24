@@ -7,3 +7,6 @@ include LICENSE.txt
 
 # Include setup.py
 include setup.py
+
+# Include the sample data
+include compressnets/sample_network
