@@ -7,6 +7,11 @@ To use `compressnets`, install the package via the PyPi (or TestPyPi) index via
 The core elements of `compressnets` are the objects, `network.TemporalNetwork` and `network.Snapshot`,
 and the algorithm `compression.Compressor.compress(...)`.
 
+Follow along the following example in your own Python workspace with
+```
+from compressnets import compression, network
+```
+
 As an example, create a NumPy array to represent your adjacency matrices:
 ```
 snapshot_1 = [[0, 0, 1],
@@ -67,9 +72,11 @@ own workspace to use a sample temporal network to compress it, and visualize a s
 the compressed network vs. the original temporal solution. 
 
 ```
+from compressnets import compression, network, demos, solvers
+
 demo_network = demos.Sample.get_sample_temporal_network()
-compressed_optimal = comp.Compressor.compress(my_net, compress_to=4, how='optimal')["compressed_network"]
-compressed_even = comp.Compressor.compress(my_net, compress_to=4, how='even')["compressed_network"]
+compressed_optimal = compression.Compressor.compress(my_net, compress_to=4, how='optimal')["compressed_network"]
+compressed_even = compression.Compressor.compress(my_net, compress_to=4, how='even')["compressed_network"]
 ```
 Now you have the resulting compressed temporal networks for the optimal (algorithmic) method and from an even
 aggregation method. 
@@ -128,6 +135,7 @@ plt.show()
 
 
 ![fig1](datafiles/sample_fig.png)
+
 Output figure from the sample code above using the provided demo temporal network.
 The original temporal network has 50 snapshots and is compressed down to 4 snapshots.
 In blue, you see the resulting temporal boundaries of the 4 snapshots compressed using our
