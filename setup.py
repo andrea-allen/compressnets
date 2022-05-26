@@ -1,15 +1,15 @@
 from setuptools import find_packages
 import setuptools
 
-VERSION = '0.1.4'
+VERSION = '0.1.5'
 DESCRIPTION = 'CompressNets package for temporal network and contact data compression'
-LONG_DESCRIPTION = 'CompressNets is a Python package that supports compression of user-specified adjacency matrices ' \
-                   'encoding temporal contact data. Using an original compression algorithm, a simplified compressed ' \
-                   'version of the contact data is generated, to lower resolution of the data while maintaining ' \
-                   'important temporal structural features.'
+# LONG_DESCRIPTION = 'CompressNets is a Python package that supports compression of user-specified adjacency matrices ' \
+#                    'encoding temporal contact data. Using an original compression algorithm, a simplified compressed ' \
+#                    'version of the contact data is generated, to lower resolution of the data while maintaining ' \
+#                    'important temporal structural features.'
 
 with open("README.md", "r", encoding="utf-8") as fh:
-    long_description = fh.read()
+    LONG_DESCRIPTION = fh.read()
 
 setuptools.setup(
     name="compressnets",

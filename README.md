@@ -1,9 +1,9 @@
 # compressnets
 
-To use `compressnets`, install the package via the PyPi (or TestPyPi) index via
-`pip install -i https://test.pypi.org/simple/ compressnets`.
+Compressnets is a Python package designed to compress high-resolution temporal network data (eg. contact networks)
+to lower resolution, while maintaining important temporal structural features.
 
-Compressnets is a package designed for taking sequences of static networks (represented as adjacency matrices)
+Compressnets is designed for taking sequences of static networks (represented as adjacency matrices)
 and compressing them to a user-specified reduced number of adjacency matrices. For example, say you
 have contact data at the resolution of 20 seconds, over the course of 24 hours, which can be represented
 as 4,320 adjacency matrices. 
@@ -18,6 +18,9 @@ Pre-print with further details on the compression algorithm and theoretical fram
 This example is just to show how to use the package. In practice, 3 starting snapshots is unrealistic as there wouldn't
 be a need to use an algorithm for compressing 3 snapshots into 2, so this example just demonstrates package usage in a simple way.
 See below for a usage demo using a built-in sample network.
+
+To use `compressnets`, install the package via the PyPi (or TestPyPi) index via
+`pip install -i https://test.pypi.org/simple/ compressnets`.
 
 The core elements of `compressnets` are the objects, `network.TemporalNetwork` and `network.Snapshot`,
 and the algorithm `compression.Compressor.compress(...)`.
