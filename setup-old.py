@@ -31,3 +31,5 @@ setuptools.setup(
     python_requires=">=3.6",
     include_package_data=True,
 )
+
+## helpful article: https://py-pkgs.org/04-package-structure
