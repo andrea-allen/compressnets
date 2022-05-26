@@ -2,6 +2,10 @@
 
 <!--next-version-placeholder-->
 
+## v0.1.18 (2022-05-26)
+### Documentation
+* Update installation to reflect PyPI release ([`af07a1d`](https://github.com/andrea-allen/compressnets/commit/af07a1d23896f78f28973d207db0c35f0729eeeb))
+
 ## v0.1.17 (2022-05-26)
 
 
