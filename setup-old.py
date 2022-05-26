@@ -33,3 +33,10 @@ setuptools.setup(
 )
 
 ## helpful article: https://py-pkgs.org/04-package-structure
+
+# [build-system]
+# requires = [
+#     "setuptools>=61.0.0",
+#     "wheel"
+# ]
+# build-backend = "setuptools.build_meta"

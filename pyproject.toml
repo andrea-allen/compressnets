@@ -1,20 +1,18 @@
-# pyproject.toml
-
-[build-system]
-requires = [
-    "setuptools>=61.0.0",
-    "wheel"
-]
-build-backend = "setuptools.build_meta"
-
 [tool.poetry]
 name = "compressnets"
 version = "0.1.12"
 description = 'Package for temporal network data compression'
 readme = "README.md"
-authors = "Andrea Allen"
-email = "andrea2allen@gmail.com"
-license = "LICENSE.txt"
+authors = [
+    "Andrea Allen <andrea2allen@gmail.com>",
+]
+license = "BSD-3"
+packages = [
+    { include = "compressnets" }
+]
+include = [
+    { path = "tests", format = "sdist" }
+]
 classifiers = [
     "Development Status :: 3 - Alpha",
     "Intended Audience :: Science/Research",
@@ -23,7 +21,9 @@ classifiers = [
     "Operating System :: Microsoft :: Windows",
 ]
 keywords = ["python", "compressnets", "networks", "compression"]
-requires-python=">=3.6"
+[tool.poetry.dependencies]
+python = "^3.6"
 
 [project.urls]
-Homepage = "https://github.com/andrea-allen/compressnets"
+homepage = "https://github.com/andrea-allen/compressnets"
+repository = "https://github.com/andrea-allen/compressnets"
