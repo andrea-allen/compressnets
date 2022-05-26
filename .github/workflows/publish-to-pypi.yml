@@ -16,7 +16,7 @@ jobs:
     - name: Install package
       run: poetry install
     - name: Test with pytest
-      run: pytest tests/
+      run: poetry run pytest tests/
     - name: Use Python Semantic Release to prepare release
       env:
         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
