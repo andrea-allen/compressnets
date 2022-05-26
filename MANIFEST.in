@@ -5,8 +5,6 @@ include *.md
 # Include the license file
 include LICENSE.txt
 
-# Include setup-old.py
-#include setup.py
 include pyproject.toml
 
 # Include the data files
