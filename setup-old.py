@@ -3,10 +3,6 @@ import setuptools
 
 VERSION = '0.1.6'
 DESCRIPTION = 'CompressNets package for temporal network and contact data compression'
-# LONG_DESCRIPTION = 'CompressNets is a Python package that supports compression of user-specified adjacency matrices ' \
-#                    'encoding temporal contact data. Using an original compression algorithm, a simplified compressed ' \
-#                    'version of the contact data is generated, to lower resolution of the data while maintaining ' \
-#                    'important temporal structural features.'
 
 with open("README.md", "r", encoding="utf-8") as fh:
     LONG_DESCRIPTION = fh.read()

@@ -5,8 +5,9 @@ include *.md
 # Include the license file
 include LICENSE.txt
 
-# Include setup.py
-include setup.py
+# Include setup-old.py
+#include setup.py
+include pyproject.toml
 
 # Include the data files
 recursive-include datafiles *
