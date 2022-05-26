@@ -21,7 +21,7 @@ classifiers = [
 keywords = ["python", "compressnets", "networks", "compression"]
 homepage = "https://github.com/andrea-allen/compressnets"
 [tool.poetry.dependencies]
-python = "^3.8"
+python = "^3.8, <3.11"
 
 [project.urls]
 homepage = "https://github.com/andrea-allen/compressnets"
