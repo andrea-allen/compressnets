@@ -39,4 +39,5 @@ remove_dist = false                         # don't remove dists
 patch_without_tag = true                    # patch release by default
 
 [tool.poetry.dev-dependencies]
-pytest = "^6.2"
+pytest = "^7.1"
+numpy = "^1.2"
