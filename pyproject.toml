@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "compressnets"
-version = "0.1.15"
+version = "0.1.16"
 description = 'Package for temporal network data compression'
 readme = "README.md"
 authors = [
