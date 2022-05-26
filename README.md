@@ -146,7 +146,7 @@ plt.show()
 ```
 
 
-![fig1](datafiles/sample_fig.png)
+![fig1](compressnets/datafiles/sample_fig.png)
 
 Output figure from the sample code above using the provided demo temporal network.
 The original temporal network has 50 snapshots and is compressed down to 4 snapshots.
