@@ -12,8 +12,9 @@ name = "compressnets"
 version = "0.1.12"
 description = 'Package for temporal network data compression'
 readme = "README.md"
-authors = [{ name = "Andrea Allen", email = "andrea2allen@gmail.com" }]
-license = { file = "LICENSE" }
+authors = "Andrea Allen"
+email = "andrea2allen@gmail.com"
+license = "LICENSE.txt"
 classifiers = [
     "Development Status :: 3 - Alpha",
     "Intended Audience :: Science/Research",
