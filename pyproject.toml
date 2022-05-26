@@ -19,6 +19,7 @@ classifiers = [
     "Operating System :: Microsoft :: Windows",
 ]
 keywords = ["python", "compressnets", "networks", "compression"]
+homepage = "https://github.com/andrea-allen/compressnets"
 [tool.poetry.dependencies]
 python = "^3.6"
 
