@@ -7,14 +7,13 @@ requires = [
 ]
 build-backend = "setuptools.build_meta"
 
-[tool.poetry]
+[project]
 name = "compressnets"
 version = "0.1.8"
 description = 'Package for temporal network data compression'
 readme = "README.md"
 authors = [{ name = "Andrea Allen", email = "andrea2allen@gmail.com" }]
 license = { file = "LICENSE" }
-include = ["tests/*"]
 classifiers = [
     "Development Status :: 3 - Alpha",
     "Intended Audience :: Science/Research",
