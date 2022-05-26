@@ -22,7 +22,7 @@ classifiers = [
     "Operating System :: Microsoft :: Windows",
 ]
 keywords = ["python", "compressnets", "networks", "compression"]
-python_requires=">=3.6"
+requires-python=">=3.6"
 
 [project.urls]
 Homepage = "https://github.com/andrea-allen/compressnets"
