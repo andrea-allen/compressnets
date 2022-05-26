@@ -3,7 +3,22 @@
 To use `compressnets`, install the package via the PyPi (or TestPyPi) index via
 `pip install -i https://test.pypi.org/simple/ compressnets`.
 
+Compressnets is a package designed for taking sequences of static networks (represented as adjacency matrices)
+and compressing them to a user-specified reduced number of adjacency matrices. For example, say you
+have contact data at the resolution of 20 seconds, over the course of 24 hours, which can be represented
+as 4,320 adjacency matrices. 
+You might wish to compress the data from the original 4,320 adjacency matrices into the best 20 adjacency matrices
+that best represent the temporal dynamics. The 
+`compressnets` package can help you to progressively aggregate the data into the best 20 representative "snapshots" 
+(single static network valid for a duration of time). 
+
+Pre-print with further details on the compression algorithm and theoretical framework is available [on the arXiv](https://arxiv.org/abs/2205.11566).
+
 ## Most basic usage
+This example is just to show how to use the package. In practice, 3 starting snapshots is unrealistic as there wouldn't
+be a need to use an algorithm for compressing 3 snapshots into 2, so this example just demonstrates package usage in a simple way.
+See below for a usage demo using a built-in sample network.
+
 The core elements of `compressnets` are the objects, `network.TemporalNetwork` and `network.Snapshot`,
 and the algorithm `compression.Compressor.compress(...)`.
 
@@ -39,7 +54,7 @@ Using the algorithmic compression from our paper [link], you can compress
 the temporal network into a desired number of compressed snapshots (in this example, 5), by calling on an instance of the static `Compressor` class
 ```
 your_compressed_network_result = compression.Compressor.compress(your_temporal_network,
-                                                          compress_to=5,
+                                                          compress_to=2,
                                                           how='optimal')
 ``` 
 which will return the new `TemporalNetwork` object, and also the total induced error from the snapshots that
@@ -52,7 +67,7 @@ To compress your original network into an even division and aggregation of snaps
 not using our algorithm, you can call `compress` and changing the `how` argument to `even`:
 ```
 your_even_compressed_network_result = compression.Compressor.compress(your_temporal_network,
-                                                          compress_to=5,
+                                                          compress_to=2,
                                                           how='even')
 even_compressed_network = your_even_compressed_network_result["compressed_network"]                                                    
 ``` 
@@ -142,4 +157,11 @@ In blue, you see the resulting temporal boundaries of the 4 snapshots compressed
 algorithm. In red, you see the resulting temporal boundaries of the 4 snapshots compressed
 into even-size aggregate matrices. The time series represent an SI epidemic process over the
 3 versions of the network.
+
+## Citation
+
+If you use this package, please name your use of this package as well as the original 
+paper on the framework, as 
+
+
 
