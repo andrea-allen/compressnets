@@ -10,9 +10,7 @@ license = "BSD-3"
 packages = [
     { include = "compressnets" }
 ]
-include = [
-    { path = "tests", format = "sdist" }
-]
+include = ["tests/*", "CHANGELOG.md"]
 classifiers = [
     "Development Status :: 3 - Alpha",
     "Intended Audience :: Science/Research",
