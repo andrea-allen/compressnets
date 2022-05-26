@@ -19,8 +19,8 @@ This example is just to show how to use the package. In practice, 3 starting sna
 be a need to use an algorithm for compressing 3 snapshots into 2, so this example just demonstrates package usage in a simple way.
 See below for a usage demo using a built-in sample network.
 
-To use `compressnets`, install the package via the PyPi (or TestPyPi) index via
-`pip install -i https://test.pypi.org/simple/ compressnets`.
+To use `compressnets`, install the package via the PyPi index via
+`pip install compressnets`.
 
 The core elements of `compressnets` are the objects, `network.TemporalNetwork` and `network.Snapshot`,
 and the algorithm `compression.Compressor.compress(...)`.
