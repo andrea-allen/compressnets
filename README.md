@@ -32,15 +32,9 @@ from compressnets import compression, network
 
 As an example, create a NumPy array to represent your adjacency matrices:
 ```
-snapshot_1 = [[0, 0, 1],
-            [0, 0, 1],
-            [1, 1, 0]]
-snapshot_2 = [[0, 1, 1],
-            [1, 0, 1],
-            [1, 1, 0]]
-snapshot_3 = [[0, 1, 0],
-            [1, 0, 1],
-            [0, 1, 0]]
+snapshot_1 = [[0, 0, 1],[0, 0, 1],[1, 1, 0]]
+snapshot_2 = [[0, 1, 1],[1, 0, 1],[1, 1, 0]]
+snapshot_3 = [[0, 1, 0],[1, 0, 1],[0, 1, 0]]
 ```
 Then create a list of `Snapshot` objects from your arrays, equipped with a consecutive start and end time for each:
 ```
