@@ -1,2 +1,2 @@
-from compressnets import compression, network, solvers, demos, datafiles
+from compressnets import compression, network, solvers, demos
 
