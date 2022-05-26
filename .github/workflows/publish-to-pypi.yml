@@ -15,8 +15,6 @@ jobs:
       uses: snok/install-poetry@v1
     - name: Install package
       run: poetry install
-    - name: Test with pytest
-      run: poetry run pytest tests/
     - name: Publish to TestPyPI
       uses: pypa/gh-action-pypi-publish@master
       with:
