@@ -146,7 +146,7 @@ plt.show()
 ```
 
 
-![fig1](compressnets/datafiles/sample_fig.png)
+![](compressnets/datafiles/sample_fig.png)
 
 Output figure from the sample code above using the provided demo temporal network.
 The original temporal network has 50 snapshots and is compressed down to 4 snapshots.
@@ -159,6 +159,10 @@ into even-size aggregate matrices. The time series represent an SI epidemic proc
 
 If you use this package, please name your use of this package as well as the original 
 paper on the framework, as 
+
+Allen, Andrea J. and Moore, Cristopher and Hébert-Dufresne, Laurent.
+A network compression approach for quantifying the importance of temporal contact chronology.
+Preprint at https://arxiv.org/abs/2205.11566 (2022).
 
 
 
