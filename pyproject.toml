@@ -41,3 +41,4 @@ patch_without_tag = true                    # patch release by default
 [tool.poetry.dev-dependencies]
 pytest = "^7.1"
 numpy = "1.22.4"
+scipy = "1.8.1"
