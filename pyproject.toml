@@ -9,7 +9,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "compressnets"
-version = "0.1.10"
+version = "0.1.11"
 description = 'Package for temporal network data compression'
 readme = "README.md"
 authors = [{ name = "Andrea Allen", email = "andrea2allen@gmail.com" }]
