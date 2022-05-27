@@ -87,8 +87,8 @@ the compressed network vs. the original temporal solution.
 from compressnets import compression, network, demos, solvers
 
 demo_network = demos.Sample.get_sample_temporal_network()
-compressed_optimal = compression.Compressor.compress(my_net, compress_to=4, how='optimal')["compressed_network"]
-compressed_even = compression.Compressor.compress(my_net, compress_to=4, how='even')["compressed_network"]
+compressed_optimal = compression.Compressor.compress(demo_network, compress_to=4, how='optimal')["compressed_network"]
+compressed_even = compression.Compressor.compress(demo_network, compress_to=4, how='even')["compressed_network"]
 ```
 Now you have the resulting compressed temporal networks for the optimal (algorithmic) method and from an even
 aggregation method. 
