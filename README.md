@@ -168,7 +168,8 @@ plt.show()
 ```
 
 
-![](compressnets/datafiles/sample_fig.png)
+![](https://raw.githubusercontent.com/andrea-allen/compressnets/main/compressnets/datafiles/sample_fig.png)
+
 
 Output figure from the sample code above using the provided demo temporal network.
 The original temporal network has 50 snapshots and is compressed down to 4 snapshots.
