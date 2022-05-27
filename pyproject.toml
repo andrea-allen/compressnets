@@ -28,10 +28,7 @@ homepage = "https://github.com/andrea-allen/compressnets"
 repository = "https://github.com/andrea-allen/compressnets"
 
 [tool.semantic_release]
-version_variable = [
-    "compressnets/__init__.py:__version__",
-    "pyproject.toml:version"
-]
+version_variable = "pyproject.toml:version" # version location
 branch = "main"                             # branch to make releases of
 changelog_file = "CHANGELOG.md"             # changelog file
 build_command = "poetry build"              # build dists
