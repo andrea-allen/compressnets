@@ -217,4 +217,4 @@ A network compression approach for quantifying the importance of temporal contac
 Preprint at https://arxiv.org/abs/2205.11566 (2022).
 
 
-
+Code written and maintained by Andrea Allen.
