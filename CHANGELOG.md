@@ -2,6 +2,9 @@
 
 <!--next-version-placeholder-->
 
+## v1.0.1 (2022-05-27)
+
+
 ## v1.0.0 (2022-05-27)
 ### Feature
 * First major release
