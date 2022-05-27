@@ -79,7 +79,40 @@ class Snapshot:
         self.beta = new_beta
 
 
+class TemporalData:
+    """
+    Helper object to hold list of adjacency matrices and temporal data
+    """
+    def __init__(self, matrices, interval, beta):
+        """
+
+        :param matrices: list of arrays
+        :param interval: time interval for each duration of snapshot
+        :param beta: desired beta for snapshot infection rate for compression algorithm
+        """
+        self.matrices = matrices
+        self.interval = interval
+        self.beta = beta
+
+    def to_snapshot_list(self):
+        """
+        Generate list of Snapshot objects for each adjacency matrix provided
+        :return: list
+        """
+        m = len(self.matrices)
+        times = [t*self.interval for t in range(m)]
+        times.append(m*self.interval)
+        snapshot_list = list([Snapshot(times[i], times[i+1],
+                                       self.beta,
+                                       self.matrices[i]) for i in range(m)])
+        return snapshot_list
+
+
+
 class TemporalNetworkEncoder(json.JSONEncoder):
+    """
+    Encode a TemporalNetwork object to JSON
+    """
     def default(self, obj):
         if isinstance(obj, np.ndarray):
             cont_obj = np.ascontiguousarray(obj)
@@ -104,6 +137,12 @@ class TemporalNetworkDecoder:
                                     A=np.array(snapshot_as_dict['A']))
 
     def decode(self, fname=None, json_str=None):
+        """
+        Decode a file or JSON string to a TemporalNetwork object
+        :param fname: If stored as json file, provide file name
+        :param json_str: If stored in memory as a JSON string, provide string
+        :return: TemporalNetwork
+        """
         if fname is not None:
             fp = open(fname, 'r')
             loaded_network = json.load(fp)
