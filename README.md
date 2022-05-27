@@ -30,25 +30,47 @@ Follow along the following example in your own Python workspace with
 from compressnets import compression, network
 ```
 
-As an example, create a NumPy array to represent your adjacency matrices:
+As an example, create NumPy arrays to represent your adjacency matrices (or load them from data via your own code):
 ```
-snapshot_1 = [[0, 0, 1],[0, 0, 1],[1, 1, 0]]
-snapshot_2 = [[0, 1, 1],[1, 0, 1],[1, 1, 0]]
-snapshot_3 = [[0, 1, 0],[1, 0, 1],[0, 1, 0]]
+matrix_1 = np.array([[0, 0, 1],[0, 0, 1],[1, 1, 0]])
+matrix_2 = np.array([[0, 1, 1],[1, 0, 1],[1, 1, 0]])
+matrix_3 = np.array([[0, 1, 0],[1, 0, 1],[0, 1, 0]])
 ```
-Then create a list of `Snapshot` objects from your arrays, equipped with a consecutive start and end time for each:
+Next, you will be creating `Snapshot` objects out of your arrays. A snapshot is simply an adjacency matrix
+coupled with a start time, end time, and `beta` value, which will be used in the computation process for the
+compression algorithm.
+#### Note: While the durations of each snapshot may vary in length from one another, the `end_time` of one snapshot should be the `start_time` of the next one. In other words, there should not be gaps in your snapshots.
+#### Note: It's also best practice to set the very first `start_time` as 0. The `to_snapshot_list()` helper function will do this automatically, but if you configure snapshots by hand, be sure to standardize to start at 0. 
+
+If the duration of all of your snapshots is uniform, you can use the `TemporalData` object
+as a helper object to quickly make a series of snapshots using your list of adjacency matrices, like this:
 ```
 infect_rate = 0.5
-snapshots = [network.Snapshot(start_time=0, end_time=1, beta=infect_rate, A=snapshot_1),
-             network.Snapshot(start_time=1, end_time=2, beta=infect_rate, A=snapshot_2),
-             network.Snapshot(start_time=2, end_time=3, beta=infect_rate, A=snapshot_3)]
+your_temporal_data = network.TemporalData([matrix_1, matrix_2, matrix_3], interval=1, beta=infect_rate)
+snapshots = your_temporal_data.to_snapshot_list()
 ```
-Then create a `TemporalNetwork` object to contain all of your ordered snapshots:
+
+See section below on choosing `beta`, but for this example, it can be any value between 0 and 1.
+#### Note: `beta` should be the same for all snapshots in the list.
+
+
+If your snapshots have custom durations and are not all equal to the same interval, you can instead
+create your own list of `Snapshot` objects from your arrays, equipped with a consecutive start and end time for each,
+(instead of using the `TemporalData` helper):
+```
+snapshots = [network.Snapshot(start_time=0, end_time=1, beta=infect_rate, A=matrix_1),
+             network.Snapshot(start_time=1, end_time=2, beta=infect_rate, A=matrix_2),
+             network.Snapshot(start_time=2, end_time=3, beta=infect_rate, A=matrix_3)]
+```
+
+Either way, once you have a list of `Snapshot` objects,
+then create a `TemporalNetwork` object to contain all of your ordered snapshots:
 ```
 your_temporal_network = network.TemporalNetwork(snapshots)
 ```
 Using the algorithmic compression from our paper [link], you can compress
-the temporal network into a desired number of compressed snapshots (in this example, 5), by calling on an instance of the static `Compressor` class
+the temporal network into a desired number of compressed snapshots (in this example, 2), by calling on an instance of 
+the static `Compressor` class
 ```
 your_compressed_network_result = compression.Compressor.compress(your_temporal_network,
                                                           compress_to=2,
@@ -154,6 +176,35 @@ In blue, you see the resulting temporal boundaries of the 4 snapshots compressed
 algorithm. In red, you see the resulting temporal boundaries of the 4 snapshots compressed
 into even-size aggregate matrices. The time series represent an SI epidemic process over the
 3 versions of the network.
+
+## Choosing the infect rate `beta`
+The best `beta` value to choose for your series of networks is one that,
+given an SI process over the full sequence of temporal networks,
+won't saturate (infect the entire network) too quickly, but that also provides
+rich enough dynamics that can be observed.
+
+One way to test if a given `beta` value is appropriate is to use the `solvers` module.
+The same module that is shown in the demo to assess how your compression
+performed is also just as useful for a pre-analysis of your system.
+
+For example, running just the top block of the demo above will give you a time series solution
+on your full temporal network:
+```
+N = demo_network.snapshots[0].N
+beta = YOUR_CHOSEN_VALUE
+model = solvers.TemporalSIModel({'beta': beta}, np.array([1/N for _ in range(N)]),
+                                demo_network.snapshots[demo_network.length-1].end_time,
+                                demo_network)
+soln = model.solve_model()
+smooth_soln = model.smooth_solution(soln)
+plt.plot(smooth_soln[0], smooth_soln[1], color='k', label='Temporal solution')
+```
+
+You can try out a range of different `beta` values until you see a time series
+solution that doesn't saturate too quickly and also doesn't die off.
+The compression algorithm is robust to a range of values around your specified value,
+so no need to worry about a precise value of `beta`, just one that's in the appropriate range
+for the epidemic dynamics to be observed.
 
 ## Citation
 
