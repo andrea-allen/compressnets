@@ -24,6 +24,7 @@ jobs:
         pip install python-semantic-release
         git config user.name github-actions
         git config user.email github-actions@github.com
+        poetry build
         poetry publish
     - name: Publish to TestPyPI
       uses: pypa/gh-action-pypi-publish@master
