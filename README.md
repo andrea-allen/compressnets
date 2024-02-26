@@ -12,7 +12,7 @@ that best represent the temporal dynamics. The
 `compressnets` package can help you to progressively aggregate the data into the best 20 representative "snapshots" 
 (single static network valid for a duration of time). 
 
-Pre-print with further details on the compression algorithm and theoretical framework is available [on the arXiv](https://arxiv.org/abs/2205.11566).
+Further details on the compression algorithm and theoretical framework is available [in this Physical Review Letters article](https://journals.aps.org/prl/abstract/10.1103/PhysRevLett.132.077402).
 
 ## Most basic usage
 This example is just to show how to use the package. In practice, 3 starting snapshots is unrealistic as there wouldn't
@@ -212,9 +212,7 @@ for the epidemic dynamics to be observed.
 If you use this package, please name your use of this package as well as the original 
 paper on the framework, as 
 
-Allen, Andrea J. and Moore, Cristopher and Hébert-Dufresne, Laurent.
-A network compression approach for quantifying the importance of temporal contact chronology.
-Preprint at https://arxiv.org/abs/2205.11566 (2022).
+Allen, A. J., Moore, C., & Hébert-Dufresne, L. (2024). Compressing the Chronology of a Temporal Network with Graph Commutators. Physical Review Letters, 132(7), 077402.
 
 
 Code written and maintained by Andrea Allen.
